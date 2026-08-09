@@ -139,6 +139,16 @@ backend, panel de administración y preparar publicación en GitHub.
 - Configurar credenciales reales MySQL en el hosting.
 - Importar `schema.sql` en phpMyAdmin.
 - Generar hash real de contraseña admin.
-- Publicar repositorio en GitHub.
+- Desplegar `dist/` en el hosting cPanel cuando el dominio esté definido.
+
+**Cierre de sesión:**
+- Repositorio Git inicializado, commit creado y publicado en GitHub:
+  `https://github.com/morpheomax/landing_2`.
+- Rama principal local y remota: `main`.
+- Último commit publicado: `66aa4e2 Initial landing template with CMS`.
+- Build validado con `npm run build`.
+- Sintaxis PHP validada con `php -l` en backend y panel admin.
+- Se limpiaron artefactos locales innecesarios (`.DS_Store` y ZIP duplicado de
+  frames). `node_modules`, `.astro` y `dist` permanecen locales e ignorados.
 
 ---
