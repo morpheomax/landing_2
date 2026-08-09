@@ -152,3 +152,28 @@ backend, panel de administración y preparar publicación en GitHub.
   frames). `node_modules`, `.astro` y `dist` permanecen locales e ignorados.
 
 ---
+
+## Sesión 5 — Cierre operativo final (OpenCode)
+
+**Fecha:** 2026-08-08
+
+**Contexto:** Max pidió actualizar registros, limpiar y cerrar para continuar
+en otro momento.
+
+**Estado final:**
+- Repositorio local en rama `main`, conectado a
+  `https://github.com/morpheomax/landing_2`.
+- Últimos commits publicados:
+  - `fc313be Document session handoff`
+  - `66aa4e2 Initial landing template with CMS`
+- Worktree limpio antes del cierre, salvo artefactos ignorados locales.
+- Se eliminó un `.DS_Store` reaparecido en `public/frames/hero/`.
+- `node_modules/`, `.astro/` y `dist/` quedan locales e ignorados por Git.
+
+**Para retomar:**
+- Revisar primero `README.md`, `AGENTS.md` y este `PROGRESS.md`.
+- Si se trabajará en hosting real, configurar `public/cms/config.php` solo en
+  el servidor, importar `public/cms/schema.sql` y generar hash admin real.
+- Validar con `npm run build` antes de cualquier nuevo push.
+
+---
