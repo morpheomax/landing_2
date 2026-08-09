@@ -1,0 +1,23 @@
+# Cielo Austral — Astroturismo en Chile
+
+> Empresa de astroturismo en Chile especializada en observación astronómica guiada,
+> expediciones nocturnas y fotografía de cielo profundo bajo algunos de los cielos
+> más oscuros y despejados del hemisferio sur.
+
+## Qué hacemos
+- Tours guiados de observación astronómica nocturna con telescopios profesionales.
+- Expediciones fotográficas de astrofotografía (vía láctea, nebulosas, planetas).
+- Charlas educativas de astronomía para grupos, colegios y turismo receptivo.
+- Experiencias personalizadas para parejas, familias y grupos corporativos.
+
+## Público objetivo
+Turistas nacionales e internacionales, viajeros interesados en astronomía,
+fotógrafos, familias y colegios que buscan experiencias educativas bajo el cielo.
+
+## Páginas clave
+- /: Landing principal con todas las secciones (inicio, quiénes somos, qué hacemos,
+  próximos tours, tours realizados, tarifas, contacto).
+
+## Contacto
+Reservas y consultas a través del formulario de contacto en el sitio o WhatsApp
+(reemplazar con datos reales de la empresa en src/data/consts.ts).

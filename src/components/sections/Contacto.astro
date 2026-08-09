@@ -1,0 +1,87 @@
+---
+import { CONTACT } from '@/data/consts';
+import { CONTACT_CONTENT } from '@/data/content';
+---
+
+<section id="contacto" class="relative px-6 py-28 sm:py-36">
+  <div class="mx-auto grid max-w-6xl gap-14 lg:grid-cols-2">
+    <div>
+      <p data-reveal data-cms="contact.eyebrow" class="font-mono-label mb-4 text-xs text-teal-400">{CONTACT_CONTENT.eyebrow}</p>
+      <h2 data-reveal data-reveal-delay="0.05" class="font-display text-3xl font-semibold text-mist-100 sm:text-4xl">
+        <span data-cms="contact.title">{CONTACT_CONTENT.title}</span>
+      </h2>
+      <p data-reveal data-cms="contact.description" data-reveal-delay="0.1" class="mt-4 text-mist-400">
+        {CONTACT_CONTENT.description}
+      </p>
+
+      <div data-reveal data-reveal-delay="0.15" class="mt-8 space-y-3 text-sm">
+        <a href={`mailto:${CONTACT.email}`} data-cms-email-link class="flex items-center gap-3 text-mist-100 hover:text-nova-400">
+          <span class="font-mono-label text-[10px] text-mist-400">Email</span> <span data-cms="contact.email">{CONTACT.email}</span>
+        </a>
+        <a href={`https://wa.me/${CONTACT.whatsapp}`} data-cms-whatsapp class="flex items-center gap-3 text-mist-100 hover:text-nova-400">
+          <span class="font-mono-label text-[10px] text-mist-400">WhatsApp</span> <span data-cms="contact.phone">{CONTACT.phone}</span>
+        </a>
+        <p class="flex items-center gap-3 text-mist-100">
+          <span class="font-mono-label text-[10px] text-mist-400">Ubicación</span> <span data-cms="contact.address">{CONTACT.address}</span>
+        </p>
+      </div>
+
+      <div id="faq-list" data-reveal data-reveal-delay="0.2" class="mt-10 space-y-5">
+        {CONTACT_CONTENT.faqs.map((faq) => (
+          <details class="group rounded-xl glass-panel p-4">
+            <summary class="cursor-pointer list-none text-sm font-semibold text-mist-100 marker:content-none">
+              {faq.pregunta}
+            </summary>
+            <p class="mt-2 text-sm text-mist-400">{faq.respuesta}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+
+    <!--
+      NOTA: este formulario es solo de interfaz (no envía datos todavía).
+      Instrucciones para conectarlo a un servicio real (Formspree, Resend,
+      etc.) en el README, sección "Conectar el formulario de contacto".
+    -->
+    <form data-reveal data-reveal-delay="0.1" class="rounded-2xl glass-panel p-7" onsubmit="return false;">
+      <div class="grid gap-5">
+        <div>
+          <label for="nombre" class="font-mono-label text-[11px] text-mist-400">Nombre</label>
+          <input
+            id="nombre"
+            name="nombre"
+            type="text"
+            required
+            class="mt-2 w-full rounded-lg border border-mist-100/15 bg-space-950/60 px-4 py-2.5 text-sm text-mist-100 outline-none focus:border-nova-400"
+          />
+        </div>
+        <div>
+          <label for="email" class="font-mono-label text-[11px] text-mist-400">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            class="mt-2 w-full rounded-lg border border-mist-100/15 bg-space-950/60 px-4 py-2.5 text-sm text-mist-100 outline-none focus:border-nova-400"
+          />
+        </div>
+        <div>
+          <label for="mensaje" class="font-mono-label text-[11px] text-mist-400">Mensaje</label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            rows="4"
+            required
+            class="mt-2 w-full rounded-lg border border-mist-100/15 bg-space-950/60 px-4 py-2.5 text-sm text-mist-100 outline-none focus:border-nova-400"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="mt-2 rounded-full bg-nova-400 py-3 text-sm font-semibold text-space-950 transition-transform duration-300 hover:scale-[1.02]"
+        >
+          <span data-cms="contact.submitLabel">{CONTACT_CONTENT.submitLabel}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,65 @@
+---
+import { planesTarifas } from '@/data/tours';
+import { CONTACT } from '@/data/consts';
+import { PRICING_CONTENT } from '@/data/content';
+---
+
+<section id="tarifas" class="relative px-6 py-28 sm:py-36">
+  <div class="mx-auto max-w-6xl">
+    <p data-reveal data-cms="pricing.eyebrow" class="font-mono-label mb-4 text-xs text-teal-400">{PRICING_CONTENT.eyebrow}</p>
+    <h2 data-reveal data-reveal-delay="0.05" class="font-display max-w-xl text-3xl font-semibold text-mist-100 sm:text-4xl">
+      <span data-cms="pricing.title">{PRICING_CONTENT.title}</span>
+    </h2>
+
+    <div id="pricing-grid" class="mt-14 grid gap-6 lg:grid-cols-3">
+      {planesTarifas.map((plan, i) => (
+        <div
+          data-reveal
+          data-reveal-delay={0.05 * i}
+          class:list={[
+            'flex flex-col rounded-2xl p-7',
+            plan.destacado ? 'glass-panel ring-1 ring-nova-400/60 lg:-translate-y-3' : 'glass-panel',
+          ]}
+        >
+          {plan.destacado && (
+            <span class="mb-4 inline-block w-fit rounded-full bg-nova-400/15 px-3 py-1 text-[10px] font-semibold text-nova-400">
+              {PRICING_CONTENT.featuredLabel}
+            </span>
+          )}
+          <h3 class="font-display text-lg font-semibold text-mist-100">{plan.nombre}</h3>
+          <p class="mt-3">
+            <span class="font-display text-3xl font-semibold text-mist-100">{plan.precio}</span>
+            <span class="ml-1 text-xs text-mist-400">{plan.unidad}</span>
+          </p>
+          <p class="mt-3 text-sm text-mist-400">{plan.descripcion}</p>
+
+          <ul class="mt-6 flex-1 space-y-3">
+            {plan.incluye.map((item) => (
+              <li class="flex items-start gap-2 text-sm text-mist-100/90">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mt-0.5 h-4 w-4 shrink-0 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href={`https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(`Hola, me interesa el plan: ${plan.nombre}`)}`}
+            data-cms-whatsapp
+            class:list={[
+              'mt-7 inline-block rounded-full py-2.5 text-center text-sm font-semibold transition-transform duration-300 hover:scale-105',
+              plan.destacado ? 'bg-nova-400 text-space-950' : 'border border-mist-100/20 text-mist-100',
+            ]}
+          >
+            {PRICING_CONTENT.cta}
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <p data-reveal data-cms="pricing.note" class="mt-8 text-center text-xs text-mist-400">
+      {PRICING_CONTENT.note}
+    </p>
+  </div>
+</section>

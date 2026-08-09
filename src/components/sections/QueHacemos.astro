@@ -1,0 +1,22 @@
+---
+import { SERVICES_CONTENT } from '@/data/content';
+---
+
+<section id="que-hacemos" class="relative px-6 py-28 sm:py-36">
+  <div class="mx-auto max-w-6xl">
+    <p data-reveal data-cms="services.eyebrow" class="font-mono-label mb-4 text-xs text-teal-400">{SERVICES_CONTENT.eyebrow}</p>
+    <h2 data-reveal data-reveal-delay="0.05" class="font-display max-w-xl text-3xl font-semibold text-mist-100 sm:text-4xl">
+      <span data-cms="services.title">{SERVICES_CONTENT.title}</span>
+    </h2>
+
+    <div id="services-grid" class="mt-16 grid gap-10 sm:grid-cols-2">
+      {SERVICES_CONTENT.items.map((servicio, i) => (
+        <div data-reveal data-reveal-delay={0.05 * i} class="constellation-line pl-6">
+          <span class="font-mono-label text-xs text-nebula-400">{servicio.codigo}</span>
+          <h3 class="font-display mt-2 text-xl font-semibold text-mist-100">{servicio.titulo}</h3>
+          <p class="mt-3 text-sm text-mist-400">{servicio.descripcion}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

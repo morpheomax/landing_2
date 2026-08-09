@@ -1,0 +1,79 @@
+---
+import { SITE } from '@/data/consts';
+import { HERO_CONTENT } from '@/data/content';
+---
+
+<!--
+  HERO CINEMATOGRAFICO - secuencia de fotogramas controlada por scroll.
+
+  Como funciona:
+  - #hero-scrubber queda "pineado" (fijo en pantalla) mientras el usuario
+    hace scroll una distancia definida en scrollAnimations.js
+    (HERO_SCROLL_VH, en alturas de viewport).
+  - Ese scroll avanza el fotograma dibujado en #hero-frame-canvas, de 1 a N.
+  - El texto (#hero-text) se desvanece en la segunda mitad del recorrido.
+  - En el ultimo tramo, el canvas se desvanece y revela el starfield
+    procedural que sigue animando detras (z-index inferior) - el "aterrizaje"
+    del video se convierte suavemente en el resto del sitio.
+
+  Esta plantilla incluye una secuencia demo en public/frames/hero/ nombrada
+  ezgif-frame-001.jpg, ezgif-frame-002.jpg, ... Ver README para reemplazarla.
+-->
+<section id="inicio" class="relative">
+  <div id="hero-scrubber" class="relative h-screen w-full overflow-hidden">
+    <canvas id="hero-frame-canvas" class="absolute inset-0 h-full w-full"></canvas>
+
+    <!-- Overlay de legibilidad sobre el video para que el texto se lea bien -->
+    <div
+      class="pointer-events-none absolute inset-0 bg-gradient-to-b from-space-950/20 via-space-950/35 to-space-950/85"
+    >
+    </div>
+
+    <div id="hero-text" class="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+      <p data-cms="hero.coordinates" class="font-mono-label mb-6 text-xs text-teal-400">
+        {HERO_CONTENT.coordinates}
+      </p>
+
+      <h1 class="font-display text-4xl font-semibold leading-[1.05] text-mist-100 sm:text-6xl lg:text-7xl">
+        <span data-cms="hero.title">{HERO_CONTENT.title}</span>
+        <span data-cms="hero.highlightedTitle" class="block bg-gradient-to-r from-nebula-400 via-nova-400 to-teal-400 bg-clip-text text-transparent">
+          {HERO_CONTENT.highlightedTitle}
+        </span>
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-xl text-base text-mist-400 sm:text-lg">
+        <span data-cms="site.tagline">{SITE.tagline}</span>. <span data-cms="hero.description">{HERO_CONTENT.description}</span>
+      </p>
+
+      <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href={HERO_CONTENT.primaryHref}
+          class="rounded-full bg-nova-400 px-7 py-3 text-sm font-semibold text-space-950 transition-transform duration-300 hover:scale-105"
+        >
+          <span data-cms="hero.primaryCta">{HERO_CONTENT.primaryCta}</span>
+        </a>
+        <a
+          href={HERO_CONTENT.secondaryHref}
+          class="rounded-full border border-mist-100/20 px-7 py-3 text-sm font-semibold text-mist-100 transition-colors duration-300 hover:border-nebula-400 hover:text-nebula-400"
+        >
+          <span data-cms="hero.secondaryCta">{HERO_CONTENT.secondaryCta}</span>
+        </a>
+      </div>
+
+      <p class="font-mono-label mt-14 text-[10px] text-mist-400">
+        <span data-cms="hero.scrollHint">{HERO_CONTENT.scrollHint}</span> &darr;
+      </p>
+    </div>
+
+    <!-- Pantalla de carga mientras se precargan los fotogramas -->
+    <div
+      id="hero-loading"
+      class="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-space-950 transition-opacity duration-500"
+    >
+      <p class="font-mono-label text-[11px] text-mist-400">Cargando secuencia</p>
+      <div class="h-1 w-40 overflow-hidden rounded-full bg-space-700">
+        <div id="hero-loading-bar" class="h-full w-0 bg-nova-400"></div>
+      </div>
+    </div>
+  </div>
+</section>

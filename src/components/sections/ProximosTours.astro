@@ -1,0 +1,73 @@
+---
+import { proximosTours } from '@/data/tours';
+import { CONTACT } from '@/data/consts';
+import { UPCOMING_TOURS_CONTENT } from '@/data/content';
+---
+
+<section id="proximos-tours" class="relative px-6 py-28 sm:py-36">
+  <div class="mx-auto max-w-6xl">
+    <p data-reveal data-cms="upcomingTours.eyebrow" class="font-mono-label mb-4 text-xs text-teal-400">{UPCOMING_TOURS_CONTENT.eyebrow}</p>
+    <h2 data-reveal data-reveal-delay="0.05" class="font-display max-w-xl text-3xl font-semibold text-mist-100 sm:text-4xl">
+      <span data-cms="upcomingTours.title">{UPCOMING_TOURS_CONTENT.title}</span>
+    </h2>
+
+    <div id="upcoming-tours-grid" class="mt-14 grid gap-6 sm:grid-cols-2">
+      {proximosTours.map((tour, i) => {
+        const porcentaje = Math.round(
+          ((tour.cuposTotales - tour.cuposDisponibles) / tour.cuposTotales) * 100
+        );
+        return (
+          <article
+            data-reveal
+            data-reveal-delay={0.05 * i}
+            class:list={[
+              'rounded-2xl p-6 glass-panel',
+              tour.destacado && 'ring-1 ring-nova-400/50',
+            ]}
+          >
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="font-mono-label text-[11px] text-nebula-400">{tour.coordenadas}</p>
+                <h3 class="font-display mt-2 text-lg font-semibold text-mist-100">{tour.nombre}</h3>
+              </div>
+              {tour.destacado && (
+                <span class="whitespace-nowrap rounded-full bg-nova-400/15 px-3 py-1 text-[10px] font-semibold text-nova-400">
+                  {UPCOMING_TOURS_CONTENT.featuredLabel}
+                </span>
+              )}
+            </div>
+
+            <dl class="mt-4 space-y-1 text-sm text-mist-400">
+              <div class="flex justify-between"><dt>Fecha</dt><dd class="text-mist-100">{tour.fecha}</dd></div>
+              <div class="flex justify-between"><dt>Lugar</dt><dd class="text-mist-100">{tour.lugar}</dd></div>
+              <div class="flex justify-between"><dt>Desde</dt><dd class="text-nova-400">{tour.precioDesde}</dd></div>
+            </dl>
+
+            <div class="mt-4">
+              <div class="h-1.5 w-full overflow-hidden rounded-full bg-space-700">
+                <div
+                  class="h-full rounded-full bg-gradient-to-r from-nebula-500 to-teal-400"
+                  style={`width: ${porcentaje}%`}
+                >
+                </div>
+              </div>
+              <p class="mt-1.5 text-[11px] text-mist-400">
+                {tour.cuposDisponibles} de {tour.cuposTotales} cupos disponibles
+              </p>
+            </div>
+
+            <a
+              href={`https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(
+                `Hola, quiero reservar: ${tour.nombre} (${tour.fecha})`
+              )}`}
+              data-cms-whatsapp
+              class="mt-5 inline-block w-full rounded-full bg-mist-100/5 py-2.5 text-center text-sm font-semibold text-mist-100 transition-colors duration-300 hover:bg-nova-400 hover:text-space-950"
+            >
+              {UPCOMING_TOURS_CONTENT.reserveCta}
+            </a>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>

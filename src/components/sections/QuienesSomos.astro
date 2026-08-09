@@ -1,0 +1,29 @@
+---
+import { cifrasClave } from '@/data/tours';
+import { ABOUT_CONTENT } from '@/data/content';
+---
+
+<section id="quienes-somos" class="relative px-6 py-28 sm:py-36">
+  <div class="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+    <div>
+      <p data-reveal data-cms="about.eyebrow" class="font-mono-label mb-4 text-xs text-teal-400">{ABOUT_CONTENT.eyebrow}</p>
+      <h2 data-reveal data-reveal-delay="0.05" class="font-display text-3xl font-semibold text-mist-100 sm:text-4xl">
+        <span data-cms="about.title">{ABOUT_CONTENT.title}</span>
+      </h2>
+      {ABOUT_CONTENT.paragraphs.map((paragraph, i) => (
+        <p data-reveal data-cms-about-paragraph data-reveal-delay={0.1 + i * 0.05} class:list={[i === 0 ? 'mt-6' : 'mt-4', 'text-mist-400']}>
+          {paragraph}
+        </p>
+      ))}
+    </div>
+
+    <div id="stats-grid" data-reveal data-reveal-delay="0.1" class="grid grid-cols-2 gap-4">
+      {cifrasClave.map((cifra) => (
+        <div class="rounded-2xl glass-panel p-6">
+          <p class="font-display text-3xl font-semibold text-nova-400 sm:text-4xl">{cifra.valor}</p>
+          <p class="font-mono-label mt-2 text-[11px] text-mist-400">{cifra.etiqueta}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

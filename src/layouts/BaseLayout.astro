@@ -1,0 +1,62 @@
+---
+import SEO from '@/components/seo/SEO.astro';
+import StarfieldCanvas from '@/components/starfield/StarfieldCanvas.astro';
+import Navbar from '@/components/nav/Navbar.astro';
+import ScrollProgress from '@/components/ui/ScrollProgress.astro';
+import FloatingActions from '@/components/ui/FloatingActions.astro';
+import { SITE, CONTACT, NAV_ITEMS } from '@/data/consts';
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <SEO title={title} description={description} />
+  </head>
+  <body class="font-body">
+    <StarfieldCanvas />
+    <ScrollProgress />
+    <Navbar />
+    <FloatingActions />
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="border-t border-mist-100/10 py-10">
+      <div class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center sm:flex-row sm:justify-between sm:text-left">
+        <div>
+          <p data-cms="site.name" class="font-display text-sm text-mist-100">{SITE.name}</p>
+          <p class="font-mono-label mt-1 text-[10px] text-mist-400">{CONTACT.address}</p>
+        </div>
+
+        <nav aria-label="Navegación del pie de página">
+          <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-mist-400">
+            {NAV_ITEMS.map((item) => (
+              <li><a href={item.href} class="hover:text-nova-400">{item.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+
+        <p class="text-[11px] text-mist-400">
+          © {new Date().getFullYear()} {SITE.name}. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      import { initCinematicScroll } from '@/scripts/scrollAnimations.js';
+      document.addEventListener('DOMContentLoaded', initCinematicScroll);
+    </script>
+  </body>
+</html>

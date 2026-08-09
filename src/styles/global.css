@@ -1,0 +1,147 @@
+/* Fuentes: Space Grotesk (display, geométrica/futurista), Manrope (texto), JetBrains Mono (datos/coordenadas) */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@import "tailwindcss";
+
+/* ==========================================================================
+   TOKENS DE DISEÑO — Tailwind v4 usa CSS-first config: cualquier variable
+   dentro de @theme genera automáticamente utilidades (bg-space, text-nova, etc).
+   Cambia estos valores para ajustar la identidad visual del sitio completo.
+   ========================================================================== */
+@theme {
+  /* Paleta — noche del desierto de Atacama */
+  --color-space-950: #05060a;   /* fondo base, negro-azulado profundo */
+  --color-space-900: #0b0e1a;
+  --color-space-800: #10142a;
+  --color-space-700: #191f3d;
+  --color-nebula-500: #7c5cff;  /* violeta aurora — acento primario */
+  --color-nebula-400: #9b82ff;
+  --color-nova-400: #f2c879;    /* dorado estelar — CTAs / highlights */
+  --color-nova-300: #f6d99a;
+  --color-teal-400: #2ed9c3;    /* cian nebulosa — acento secundario */
+  --color-mist-100: #edeef2;    /* texto principal sobre fondo oscuro */
+  --color-mist-400: #9598a8;    /* texto secundario */
+
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --animate-twinkle: twinkle 3.4s ease-in-out infinite;
+  --animate-drift: drift 22s linear infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+@keyframes drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-40px); }
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+html {
+  scroll-behavior: auto; /* el scroll suave real lo maneja Lenis (scrollAnimations.js) */
+  background: var(--color-space-950);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-space-950);
+  color: var(--color-mist-100);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.font-mono-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Respeta accesibilidad: reduce animaciones si el usuario lo pide */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   CANVAS DE ESTRELLAS — fijo detrás de todo el contenido
+   ========================================================================== */
+#starfield-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Contenido siempre por encima del canvas */
+main, header, footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   UTILIDADES CINEMATOGRÁFICAS
+   ========================================================================== */
+
+/* Panel "vidrio" para tarjetas sobre el campo de estrellas */
+.glass-panel {
+  background: color-mix(in oklab, var(--color-space-800) 60%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-nebula-400) 22%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Elementos que se revelan al hacer scroll (GSAP setea el estado inicial también,
+   estos valores son el fallback si JS no carga) */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Línea guía tipo "carta estelar" que conecta elementos numerados */
+.constellation-line {
+  position: relative;
+}
+.constellation-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  bottom: -1.5rem;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--color-nebula-400) 70%, transparent),
+    transparent
+  );
+}
+
+/* Scrollbar discreta, coherente con el tema oscuro */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-space-950); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-space-700);
+  border-radius: 999px;
+  border: 2px solid var(--color-space-950);
+}
+
+/* Foco visible accesible, coherente con la paleta */
+:focus-visible {
+  outline: 2px solid var(--color-nova-400);
+  outline-offset: 3px;
+}
